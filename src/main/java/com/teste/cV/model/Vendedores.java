@@ -1,5 +1,6 @@
 package com.teste.cV.model;
 
+
 import java.util.List;
 
 
@@ -7,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "tb_vendedores")
@@ -26,12 +29,11 @@ public class Vendedores {
 	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String nome;
 
-	@ManyToMany
-	@JsonIgnoreProperties("clientes")
+	@OneToMany(mappedBy = "vendedores")
+	@JsonIgnoreProperties("vendedores")
 	private List<Clientes> clientes;
 
 	public Vendedores(Long id, String nome, List<Clientes> clientes) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.clientes = clientes;
